@@ -207,7 +207,7 @@ instance GameMessage ClientActionLoginRequest where
   getMessageId _ = 200
 </code></pre>
 
-And the relevant sections of code from `Server.has` to send and receive messages.  I am using [io-streams](https://hackage.haskell.org/package/io-streams) which is a fantasticlly simple to use I/O library for processing streams.
+And the relevant sections of code from `Server.hs` to send and receive messages.  I am using [io-streams](https://hackage.haskell.org/package/io-streams) which is a fantastically simple to use I/O library for processing streams.
 
 The `runClient` function runs in its own thread and handles the incoming data from the associated client connection. `UserId` is a unique identifier which associates the socket with a `Client` and their `Player` data.
 
@@ -236,4 +236,4 @@ sendMessage msg sock = do
 
 ## Conclusion
 
-Building a networked game server takes an incredible amount of work and we've only begun to scratch the surface of all the components which bring it all together.  Today I touched on some basic networking and communication techniques we are using such as low level `Network.Socket`'s wrapped in `System.IO.Streams`, and message passing techniques with `Data.ProtocolBuffers`.  In my next post I will discuss how clients interact with the game, how the game world is managed, and how our `Actor` class helps us manage scene objects.
+Building a networked game server takes an incredible amount of work and we've only begun to scratch the surface of all the components which bring it together.  Today I touched on some basic networking and communication techniques we are using such as low level `Network.Socket`'s wrapped in `System.IO.Streams`, and message passing techniques with `Data.ProtocolBuffers`.  In my next post I will discuss how clients interact with the game, how the game world is managed, and how our `Actor` class helps us manage scene objects.
