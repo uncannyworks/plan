@@ -216,7 +216,7 @@ instance Decode ClientActionLoginRequest
 instance GameMessage ClientActionLoginRequest where
   getMessageId _ = 200
 </code></pre>
-<p>And the relevant sections of code from <code>Server.has</code> to send and receive messages. I am using <a href="https://hackage.haskell.org/package/io-streams">io-streams</a> which is a fantasticlly simple to use I/O library for processing streams.</p>
+<p>And the relevant sections of code from <code>Server.hs</code> to send and receive messages. I am using <a href="https://hackage.haskell.org/package/io-streams">io-streams</a> which is a fantastically simple to use I/O library for processing streams.</p>
 <p>The <code>runClient</code> function runs in its own thread and handles the incoming data from the associated client connection. <code>UserId</code> is a unique identifier which associates the socket with a <code>Client</code> and their <code>Player</code> data.</p>
 <pre><code class="haskell">
 -- receive messages
@@ -241,7 +241,7 @@ sendMessage msg sock = do
     Streams.write (Just $ messageOutWithIdAndLength msg) outS
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
-<p>Building a networked game server takes an incredible amount of work and we’ve only begun to scratch the surface of all the components which bring it all together. Today I touched on some basic networking and communication techniques we are using such as low level <code>Network.Socket</code>’s wrapped in <code>System.IO.Streams</code>, and message passing techniques with <code>Data.ProtocolBuffers</code>. In my next post I will discuss how clients interact with the game, how the game world is managed, and how our <code>Actor</code> class helps us manage scene objects.</p>
+<p>Building a networked game server takes an incredible amount of work and we’ve only begun to scratch the surface of all the components which bring it together. Today I touched on some basic networking and communication techniques we are using such as low level <code>Network.Socket</code>’s wrapped in <code>System.IO.Streams</code>, and message passing techniques with <code>Data.ProtocolBuffers</code>. In my next post I will discuss how clients interact with the game, how the game world is managed, and how our <code>Actor</code> class helps us manage scene objects.</p>
 
 <div id="disqus_thread"></div>
 <script>
