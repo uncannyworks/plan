@@ -17,11 +17,7 @@ a {
     text-decoration: underline;
 }
 
-h1 {
-    color: #800909; 
-}
-
-h2 {
+h1, h2 {
     color: #982418;
 }
 
