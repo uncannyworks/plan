@@ -4,8 +4,8 @@
 @import url(//fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
 body {
-    color: #333333;
-    background: #E8E8E8;
+    color: #785D56;
+    background: #FFF4E3;
     margin: 0 auto;
     width: 52em;
     font-family: PT Sans, DejaVu Sans, Arial, sans;
@@ -13,16 +13,16 @@ body {
 }
 
 a {
-    color: #B90504;
+    color: #BE4C54;
     text-decoration: underline;
 }
 
 h1 {
-    color: #990100; 
+    color: #800909; 
 }
 
 h2 {
-    color: #990100;
+    color: #982418;
 }
 
 /* end snippets */
