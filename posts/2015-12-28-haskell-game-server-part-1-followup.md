@@ -1,6 +1,8 @@
 ---
-title: Haskell Game Server - Part 1 Followup
+title: Haskell Game Server - Part 1 Followup (Cross Post)
 ---
+
+(_This is a cross post from [Brian's](https://twitter.com/mojobojo) personal blog_ - [original](http://mojobojo.com/posts/2015-12-28-haskell-game-server-part-1-followup.html))
 
 Before I get started, I've changed the color scheme of this blog after a few comments about the previous colors I was using.  Sorry for offending everyone's eyes!  Hopefully the current palette is easier to read.
 

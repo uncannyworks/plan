@@ -1,6 +1,8 @@
 ---
-title: Haskell Game Server - Part 1
+title: Haskell Game Server - Part 1 (Cross Post)
 ---
+
+(_This is a cross post from [Brian's](https://twitter.com/mojobojo) personal blog_ - [original](http://mojobojo.com/posts/2015-12-26-haskell-game-server-part-1.html))
 
 This post describes the project [Armored Bits](http://armoredbits.com/) which [myself](https://twitter.com/mojobojo) and my buddy [cerbermus](https://twitter.com/cerbermus) have been working on for over half a year in our spare time.  The goal is to build a realtime, network team based, player programmable 3d mech simulator.  As the title suggests the core game server is being written in Haskell, a choice I made after having been inspired by a [QuakeCon talk](https://www.youtube.com/watch?v=1PhArSujR_A) with John Carmack, the linked video a part of that talk specifically about functional programming and games.  There is also a client viewer written in Unity3d and our first SDK written in JavaScript both being tackled by cerbermus.
 

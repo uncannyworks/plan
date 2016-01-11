@@ -4,8 +4,8 @@
 @import url(//fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
 body {
-    color: #785D56;
-    background: #FFF4E3;
+    color: #000000;
+    background: #FFFFFF;
     margin: 0 auto;
     width: 52em;
     font-family: PT Sans, DejaVu Sans, Arial, sans;
@@ -26,6 +26,11 @@ h1, h2 {
 div#header {
     margin-bottom: 30px;
     padding: 12px 0px 12px 0px;
+}
+
+div#logo img {
+    width: 200px;
+    height: 200px;
 }
 
 div#logo a {
