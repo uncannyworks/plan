@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>mojobojo.com - Haskell Game Server - Part 1</title>
+        <title>Uncanny Works - Blog</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="stylesheet" href="../css/highlight.css" />
         <script src="../js/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script type="text/javascript">
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-1531113-1']);
+            _gaq.push(['_setAccount', 'UA-28958813-1']);
             _gaq.push(['_trackPageview']);
             (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -21,23 +21,25 @@
     </head>
     <body>
         <div id="header">
-            <div id="logo">
-                <a href="../">mojobojo.com</a>
-            </div>
             <div id="navigation">
                 <a href="../archive.html">Archive</a>
-                <a href="https://twitter.com/mojobojo">@mojobojo</a>
-                <a href="https://github.com/boj">boj@GitHub</a>
+                <a href="https://twitter.com/uncannyworks">@uncannyworks</a>
+                <a href="https://github.com/uncannyworks">github</a>
             </div>
+            <a href="../">
+                <div id="logo">
+                    <img src="../images/rogo1_kuro.png" />
+                </div>
+            </a>
         </div>
-
         <div id="content">
-            <h1>Haskell Game Server - Part 1</h1>
+            <h1>Haskell Game Server - Part 1 (Cross Post)</h1>
 <div class="info">
     Posted on December 26, 2015
     
 </div>
 
+<p>(<em>This is a cross post from <a href="https://twitter.com/mojobojo">Brian’s</a> personal blog</em> - <a href="http://mojobojo.com/posts/2015-12-26-haskell-game-server-part-1.html">original</a>)</p>
 <p>This post describes the project <a href="http://armoredbits.com/">Armored Bits</a> which <a href="https://twitter.com/mojobojo">myself</a> and my buddy <a href="https://twitter.com/cerbermus">cerbermus</a> have been working on for over half a year in our spare time. The goal is to build a realtime, network team based, player programmable 3d mech simulator. As the title suggests the core game server is being written in Haskell, a choice I made after having been inspired by a <a href="https://www.youtube.com/watch?v=1PhArSujR_A">QuakeCon talk</a> with John Carmack, the linked video a part of that talk specifically about functional programming and games. There is also a client viewer written in Unity3d and our first SDK written in JavaScript both being tackled by cerbermus.</p>
 <p>Not including a failed attempt several years ago I have only been using Haskell for the last 9 months and am by all accounts an amatuer with the language. It has proven quite enjoyable to use, however, especially as of late now that I’ve gotten rid of some of my imperative programming notions and understand more functional programming concepts better.</p>
 <p>My goal with this post is to show a concrete non-web example of a project that is being built with Haskell. People in the <a href="https://www.reddit.com/r/haskell/">community</a> have pointed out that there are a plethora of beginner level tutorials and high level you-need-a-PhD-to-read-it articles, but not much in the way of meat and potatoes concrete project guides. This is my humble attempt to share back to the community I’ve learned so much from over the last several months.</p>
@@ -242,22 +244,6 @@ sendMessage msg sock = do
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>Building a networked game server takes an incredible amount of work and we’ve only begun to scratch the surface of all the components which bring it together. Today I touched on some basic networking and communication techniques we are using such as low level <code>Network.Socket</code>’s wrapped in <code>System.IO.Streams</code>, and message passing techniques with <code>Data.ProtocolBuffers</code>. In my next post I will discuss how clients interact with the game, how the game world is managed, and how our <code>Actor</code> class helps us manage scene objects.</p>
-
-<div id="disqus_thread"></div>
-<script>
-this.page.url = "/posts/2015-12-26-haskell-game-server-part-1.html";
-this.page.identifier = "Haskell Game Server - Part 1";
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//mojobojo.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
         </div>
         <div id="footer">

@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>mojobojo.com - Haskell Game Server - Part 2</title>
+        <title>Uncanny Works - Blog</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="stylesheet" href="../css/highlight.css" />
         <script src="../js/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script type="text/javascript">
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-1531113-1']);
+            _gaq.push(['_setAccount', 'UA-28958813-1']);
             _gaq.push(['_trackPageview']);
             (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -21,23 +21,25 @@
     </head>
     <body>
         <div id="header">
-            <div id="logo">
-                <a href="../">mojobojo.com</a>
-            </div>
             <div id="navigation">
                 <a href="../archive.html">Archive</a>
-                <a href="https://twitter.com/mojobojo">@mojobojo</a>
-                <a href="https://github.com/boj">boj@GitHub</a>
+                <a href="https://twitter.com/uncannyworks">@uncannyworks</a>
+                <a href="https://github.com/uncannyworks">github</a>
             </div>
+            <a href="../">
+                <div id="logo">
+                    <img src="../images/rogo1_kuro.png" />
+                </div>
+            </a>
         </div>
-
         <div id="content">
-            <h1>Haskell Game Server - Part 2</h1>
+            <h1>Haskell Game Server - Part 2 (Cross Post)</h1>
 <div class="info">
     Posted on January  1, 2016
     
 </div>
 
+<p>(<em>This is a cross post from <a href="https://twitter.com/mojobojo">Brian’s</a> personal blog</em> - <a href="http://mojobojo.com/posts/2016-01-01-haskell-game-server-part-2.html">original</a>)</p>
 <h2 id="previous-posts">Previous Posts</h2>
 <ul>
 <li><a href="../posts/2015-12-26-haskell-game-server-part-1.html">Part 1</a> - Networking &amp; Message Protocols</li>
@@ -250,22 +252,6 @@ isColliding aA aB = do
 <h2 id="conclusion">Conclusion</h2>
 <p>We were able to split our game server code up so that all IO related tasks happen in <code>Server</code> while all the simulation logic occurs in the pure <code>World</code>. This makes it incredibly easy to reason about how all of our simulation logic runs and test and debug any logic issues we come across. We also use various types of protobuf messages which allow the player’s AI to interact with our server and control their war machines. Finally, we’ve created an <code>Actor</code> class which simulation objects must implement so that they can interact inside the game world. The logic for performing movement, rotations, and collision detection was incredibly easy, with many thanks to Edward A. Kmett and his powerful <a href="https://hackage.haskell.org/package/linear">linear</a> library.</p>
 <p>I don’t have any plans for another post at this time, however, if there’s anything you’d like to hear more detail about please feel free to reach out to me over <a href="https://twitter.com/mojobojo">twitter</a>.</p>
-
-<div id="disqus_thread"></div>
-<script>
-this.page.url = "/posts/2016-01-01-haskell-game-server-part-2.html";
-this.page.identifier = "Haskell Game Server - Part 2";
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//mojobojo.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
         </div>
         <div id="footer">

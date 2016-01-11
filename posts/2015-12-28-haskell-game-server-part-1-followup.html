@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>mojobojo.com - Haskell Game Server - Part 1 Followup</title>
+        <title>Uncanny Works - Blog</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="stylesheet" href="../css/highlight.css" />
         <script src="../js/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script type="text/javascript">
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-1531113-1']);
+            _gaq.push(['_setAccount', 'UA-28958813-1']);
             _gaq.push(['_trackPageview']);
             (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -21,23 +21,25 @@
     </head>
     <body>
         <div id="header">
-            <div id="logo">
-                <a href="../">mojobojo.com</a>
-            </div>
             <div id="navigation">
                 <a href="../archive.html">Archive</a>
-                <a href="https://twitter.com/mojobojo">@mojobojo</a>
-                <a href="https://github.com/boj">boj@GitHub</a>
+                <a href="https://twitter.com/uncannyworks">@uncannyworks</a>
+                <a href="https://github.com/uncannyworks">github</a>
             </div>
+            <a href="../">
+                <div id="logo">
+                    <img src="../images/rogo1_kuro.png" />
+                </div>
+            </a>
         </div>
-
         <div id="content">
-            <h1>Haskell Game Server - Part 1 Followup</h1>
+            <h1>Haskell Game Server - Part 1 Followup (Cross Post)</h1>
 <div class="info">
     Posted on December 28, 2015
     
 </div>
 
+<p>(<em>This is a cross post from <a href="https://twitter.com/mojobojo">Brian’s</a> personal blog</em> - <a href="http://mojobojo.com/posts/2015-12-28-haskell-game-server-part-1-followup.html">original</a>)</p>
 <p>Before I get started, I’ve changed the color scheme of this blog after a few comments about the previous colors I was using. Sorry for offending everyone’s eyes! Hopefully the current palette is easier to read.</p>
 <p>Anyways, this is a quick followup to my previous post <a href="../posts/2015-12-26-haskell-game-server-part-1.html">Haskell Game Server - Part 1</a> which covers a few changes I made after some great feedback, and grievous debugging of a crazy issue.</p>
 <h2 id="changes-to-server.hs">Changes to Server.hs</h2>
@@ -81,22 +83,6 @@ sendMessage msg out' = do
   handle (\(SomeException e) -> debug $ "write failed: " ++ show e ) $
     Streams.write (Just $ messageOutWithIdAndLength msg) outS
 </code></pre>
-
-<div id="disqus_thread"></div>
-<script>
-this.page.url = "/posts/2015-12-28-haskell-game-server-part-1-followup.html";
-this.page.identifier = "Haskell Game Server - Part 1 Followup";
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//mojobojo.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
         </div>
         <div id="footer">
