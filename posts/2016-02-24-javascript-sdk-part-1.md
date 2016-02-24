@@ -18,7 +18,9 @@ $node mycode.js
 
 Raw communication and event handling with the game server can be overwhelming for the novice level programmer. The goal of the SDK is to provide a simple interface into these complex functions.
 
-We'll begin by exploring how the SDK simplifies sending a request to the game server. Lets have a look at the internals of ```sdk.fire_weapon(warmachine.weapons[0])``` to see what the SDK does for us.
+### Talking to the Game Server
+
+We'll begin by exploring how the SDK simplifies sending a request to the game server. We'll examine the case where a player wants to fire a weapon. Lets have a look at the internals of `sdk.fire_weapon(warmachine.weapons[0])` to see what the SDK does for us. Before we move forward note that `warmachine` is an object that we obtain by asking the Game Server for our war machine's current state in the game world. We'll go into more detail on how this is accomplished in the next post, for now just understand that we got `warmachine` from a previous step not covered here. 
 
 ```javascript
   this.fire_weapon = function(weaponStruct) {
@@ -31,7 +33,7 @@ We'll begin by exploring how the SDK simplifies sending a request to the game se
   }
 ```
 
-The function deconstructs the weapon parameter and passes off the heavy lifting to ```send_weapon_request``` which we will dig into next.
+First we must consider the parameter `weaponStruct`. `warmachine` has an array of weapon objects and we're passing in the first element of that array. The complete structure of these objects can be found in the protobuf definitions [here](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/slug.proto#L93) and [here](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/query.proto). The function then deconstructs the `weaponStruct` parameter and passes off the heavy lifting to `send_weapon_request` which we will dig into next.
 
 ```javascript
   this.send_weapon_request = function(locationType, parentId, positionId, state, fireState) {
@@ -44,7 +46,7 @@ The function deconstructs the weapon parameter and passes off the heavy lifting 
   }
 ```
 
-In general the function takes the parameters and builds the message that will be shot over the network connection. ```protobufBuilder.build``` comes from the [protobufjs](https://www.npmjs.com/package/protobufjs) library and facilitates turning javascript objects into raw bytes and back again using structures defined by [Google Protocol Buffers](https://developers.google.com/protocol-buffers). The first four lines of the function create our javascript object that represents the protobuf message. ```_build_message``` is responsible for taking that object and processing it into an array of bytes ready to be thrown on the wire. Next lets take a look at some of the parts of ```_build_message``` and what it is doing for us.
+In general the function takes the parameters and builds the message that will be shot over the network connection. `protobufBuilder.build` comes from the [protobufjs](https://www.npmjs.com/package/protobufjs) library and facilitates turning javascript objects into raw bytes and back again using structures defined by [Google Protocol Buffers](https://developers.google.com/protocol-buffers). The first two lines of the function load up the blueprints that will be used to make the objects representing the protobuf messages. The third and fourth lines actually perform the creation using the parameters provided. The reason we need two blueprints is because `SlugCommitWeaponRequest`, [as you can see in the proto file](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/commit.proto#L48), contains a nested message. `_build_message` is responsible for taking the javascript object we've created and processing it into an array of bytes ready to be thrown on the wire. Next lets take a look at some of the parts of `_build_message` and what it is doing for us.
 
 ```javascript
 var _build_message = function(code, message) {
@@ -87,12 +89,12 @@ This is the whole reason we asked [protobufjs](https://www.npmjs.com/package/pro
   buff.prepend(bb);
 ```
 
-The next step is to take the payload length and message type id, which are integers, and translate them into a 2 and 1 byte array respectively. [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) is how we are able to do that. We then prepend them to the payload to get our final message that will go over the wire. The final step is to fire the message over the wire, and this is done by ```_send_message```.
+The next step is to take the payload length and message type id, which are integers, and translate them into a 2 and 1 byte array respectively. [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) is how we are able to do that. We then prepend them to the payload to get our final message that will go over the wire. The final step is to fire the message over the wire, and this is done by `_send_message`.
 
-Internally ```_send_message``` manages the requests so that they go out as quickly as possible but don't flood the buffer, we'll go into greater detail at another time. We've basically covered the process for sending a request to the game server. While each message is a bit different in its payload they all go through the same digestion process.
+Internally `_send_message` manages the requests so that they go out as quickly as possible but don't flood the buffer, we'll go into greater detail at another time. We've basically covered the process for sending a request to the game server. While each message is a bit different in its payload they all go through the same digestion process.
 
 ### I can do it myself!
 
-Obviously there is nothing preventing a player from implementing their own solution to communicate with the game server. In addition to providing new programmers with a tool to quickly start programming the AI for their War Machine this SDK also acts as an example for the more advanced programmers that may be interested in rolling their own solutions.
+Obviously there is nothing preventing a player from implementing their own solution to communicate with the game server, and we encourage you to do so! In addition to providing new programmers with a tool to quickly start programming the AI for their War Machine this SDK also acts as an example for the more advanced programmers that may be interested in rolling their own solutions.
 
-In the next post we'll go over how the SDK handles responses from the game server.
+In the next post we'll go over how the SDK handles responses from the game server. It will cover how the SDK manages and simplifies retrieving your war machine's state, handling Game State changes, and more. 
