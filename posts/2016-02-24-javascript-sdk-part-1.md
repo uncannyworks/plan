@@ -2,6 +2,14 @@
 
 A NodeJS SDK for Armored Bits.
 
+### What is Armored Bits?
+
+Armored Bits is a competitive, multiplayer, online game where players hone their programming skills by writing AI for massive autonomous robots. Players have no direct control of their machines, instead they are tasked with reading input from scanners, processing communication streams from teammates, and analyzing their machine's state to make intelligent decisions and win victory in combat. This is all accomplished by sending network messages to the Game Server hosting the match and processing the responses received. The goal of the final product is to allow players to choose any programming language they want to code their AI and as long as said AI can correctly communicate with the Game Server over a network connection. At these early stages of development we've chosen to build an SDK targeting Javascript with NodeJS. In this post we'll cover the reasons behind our decisions as well as dig into some of the internals of this SDK. 
+
+### Why an SDK at all?
+
+Raw communication and event handling with the game server can be overwhelming for the novice level programmer. The goal of the SDK is to provide a simple interface into these complex functions.
+
 ### Why NodeJS?
 
 Node provides a stable and consistent runtime that is easily installed on many operating systems. With a quick visit to their [website](https://nodejs.org/en/download/package-manager/) you can see that, regardless of the operating system, installation can usually be done in a single terminal command. In addition to simple installation, running a NodeJS program is as simple as typing:
@@ -13,10 +21,6 @@ $node mycode.js
 ### Why Javascript?
 
  Javascript is both powerful and accessible. With the many learning [resources available](https://www.google.com/#q=learn+javascript), a fortune's worth of [Stack Overflow](http://stackoverflow.com/questions/tagged/javascript?sort=votes) answers, thriving [communities](http://irc.lc/freenode/javascript), and the shallow learning curve it makes sense that Javascript would be the [first choice](http://redmonk.com/sogrady/2016/02/19/language-rankings-1-16/) for many people wanting to learn programming.
-
-### Why an SDK at all?
-
-Raw communication and event handling with the game server can be overwhelming for the novice level programmer. The goal of the SDK is to provide a simple interface into these complex functions.
 
 ### Talking to the Game Server
 
