@@ -12,7 +12,7 @@ $node mycode.js
 
 ### Why Javascript?
 
- Javascript is both powerful and accessible. With the many learning [resources available](https://www.google.com/#q=learn+javascript), a fortune's worth of [Stack Overflow](http://stackoverflow.com/questions/tagged/javascript?sort=votes) answers, thriving [communities](http://irc.lc/freenode/javascript), and the shallow learning curve it makes sense that Javascript would be the first choice for many people wanting to learn programming.
+ Javascript is both powerful and accessible. With the many learning [resources available](https://www.google.com/#q=learn+javascript), a fortune's worth of [Stack Overflow](http://stackoverflow.com/questions/tagged/javascript?sort=votes) answers, thriving [communities](http://irc.lc/freenode/javascript), and the shallow learning curve it makes sense that Javascript would be the [first choice](http://redmonk.com/sogrady/2016/02/19/language-rankings-1-16/) for many people wanting to learn programming.
 
 ### Why an SDK at all?
 
