@@ -1,4 +1,6 @@
-# Forward into... Javascript?
+---
+title: Forward Into.. Javascript?
+---
 
 A NodeJS SDK for Armored Bits.
 
@@ -35,7 +37,7 @@ We'll begin by exploring how the SDK simplifies sending a request to the game se
       this.WEAPON_FIRE_STATE.Fire
     );
   }
-</pre></code>
+</code></pre>
 
 First we must consider the parameter `weaponStruct`. `warmachine` has an array of weapon objects and we're passing in the first element of that array. The complete structure of these objects can be found in the protobuf definitions [here](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/slug.proto#L93) and [here](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/query.proto). The function then deconstructs the `weaponStruct` parameter and passes off the heavy lifting to `send_weapon_request` which we will dig into next.
 
@@ -48,7 +50,7 @@ First we must consider the parameter `weaponStruct`. `warmachine` has an array o
     var mg = _build_message(this.MESSAGE_CODES.SlugCommitWeaponRequest, m);
     _send_message(mg);
   }
-</pre></code>
+</code></pre>
 
 In general the function takes the parameters and builds the message that will be shot over the network connection. `protobufBuilder.build` comes from the [protobufjs](https://www.npmjs.com/package/protobufjs) library and facilitates turning javascript objects into raw bytes and back again using structures defined by [Google Protocol Buffers](https://developers.google.com/protocol-buffers). The first two lines of the function load up the blueprints that will be used to make the objects representing the protobuf messages. The third and fourth lines actually perform the creation using the parameters provided. The reason we need two blueprints is because `SlugCommitWeaponRequest`, [as you can see in the proto file](https://github.com/uncannyworks/armoredbits.protobufs/blob/master/commit.proto#L48), contains a nested message. `_build_message` is responsible for taking the javascript object we've created and processing it into an array of bytes ready to be thrown on the wire. Next lets take a look at some of the parts of `_build_message` and what it is doing for us.
 
@@ -70,13 +72,13 @@ var _build_message = function(code, message) {
   buff.prepend(bb);
   //... code below omitted for brevity ...
 }
-</pre></code>
+</code></pre>
 
 The game server expects messages to consist of a 1 byte message id, followed by a 2 byte payload length, then the payload. Even after omitting some code the above may look like a lot, so lets break it down.
 
 <pre><code class="javascript">
   buff = message.encode();
-</pre></code>
+</code></pre>
 
 This is the whole reason we asked [protobufjs](https://www.npmjs.com/package/protobufjs) to join the ride. It returns a buffer full of the bytes that will make up our payload.
 
@@ -91,7 +93,7 @@ This is the whole reason we asked [protobufjs](https://www.npmjs.com/package/pro
   messageCode[0] = code;
   bb = protobuf.ByteBuffer.wrap(messageCode);
   buff.prepend(bb);
-</pre></code>
+</code></pre>
 
 The next step is to take the payload length and message type id, which are integers, and translate them into a 2 and 1 byte array respectively. [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) is how we are able to do that. We then prepend them to the payload to get our final message that will go over the wire. The final step is to fire the message over the wire, and this is done by `_send_message`.
 
