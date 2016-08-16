@@ -24,7 +24,7 @@ Covers the front and back locations of primary mech locations such as the cockpi
 
 ### Capacitor
 
-Certain weapons such as laser require extra energy on demand to fire, so capacitors fill that role. They charge from the reactor.
+Certain weapons such as lasers require extra energy on demand to fire, so capacitors fill that role. They charge from the reactor.
 
 ### Cockpit
 
@@ -55,6 +55,10 @@ If this gets destroyed a mech can no longer move. Our physics system currently i
 ### Leg
 
 While nothing special occurs with legs, they provide armor, and are required for movement. As legs become damaged mech speed slows down.
+
+### Reactor
+
+The power plant which drives the entire mech. It provides a specific amount of power each game tick that actively powered components use to stay online. Creative players could possibly overload their mech with more components than the reactor could effectively power, but rotate them in/out as the battlefield demands change.
 
 ### Sensor
 
