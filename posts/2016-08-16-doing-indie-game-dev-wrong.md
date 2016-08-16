@@ -48,7 +48,7 @@ What is truly scary to ponder is whether all of this ends up being a waste of ti
 
 ## For the Sake of Completeness
 
-I suppose a post about a game wouldn't be complete with *some* kind of screenshot or video, so here is some (scripted!) footage of our mech assets in action for a promotion we plan on doing soon. Hopefully the actual player AI on player AI action looks at least this good.
+I suppose a post about a game wouldn't be complete without *some* kind of screenshot or video, so here is some (scripted!) footage of our mech assets in action for a promotion we plan on doing soon. Hopefully the actual player AI on player AI action looks at least this good.
 
 <iframe width="1024" height="600" src="https://www.youtube.com/embed/wUnrhhkKIjc" frameborder="0" allowfullscreen></iframe>
 
