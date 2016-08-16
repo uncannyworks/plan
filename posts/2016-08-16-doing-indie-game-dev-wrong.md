@@ -26,11 +26,11 @@ Let me list off all the things Chris and I typically screw with each month.
 2. Javascript game SDK.
 3. Unity3d visual client.
 4. Elixir.
-  1. User management service.
-  2. Code management service.
-  3. Login management service.
-  4. Match making service.
-  5. Game server + user code "slug" orchestration service.
+    1. User management service.
+    2. Code management service.
+    3. Login management service.
+    4. Match making service.
+    5. Game server + user code "slug" orchestration service.
 5. Server infrastructure (web, services, db, game, monitoring, etc.)
 6. Project management (bitbucket + JIRA).
 7. Promotional websites.
