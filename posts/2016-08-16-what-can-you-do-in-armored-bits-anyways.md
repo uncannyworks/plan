@@ -82,7 +82,7 @@ Not a mech component, but contains the info related to the type of ammo a weapon
 
 ## Interaction
 
-The player's AI communications with the server using Google [protocol buffers](https://developers.google.com/protocol-buffers/). We've broken these down into a few sets of messages.
+The player's AI communication with the server using Google [protocol buffers](https://developers.google.com/protocol-buffers/). We've broken these down into a few sets of messages.
 
 1. Configure - These are used to configure the mech with desired components, and will error out if certain configurations are not possible. If the mech fails to be configured by the time the match starts the AI will be provided with a default pre-configured mech.
 2. Query - The above components are sent back in an on demand hierarchical message which describes the state of each component, including things such as whether they have power, how much ammo is left in a weapon, data in a communication queue, etc.
@@ -105,4 +105,4 @@ Above all a well written AI will be able to correlate all of this data and make 
 
 The above describes everything that is currently in the game, however, there are still a handful of additional features we'd like to throw in before we make it to the official release. Hopefully as we begin to get the community engaged more with us we'll receive more suggestions for new and interesting features we could add.
 
-If you are just coming across our blog, check out http://armoredbits.com and sign up to our newsletter at the bottom of the page for more updates as we get closer to release.
+If you are just coming across our blog, check out [http://armoredbits.com](http://armoredbits.com) and sign up to our newsletter at the bottom of the page for more updates as we get closer to release.
