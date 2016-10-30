@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Uncanny Works - Blog</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/highlight.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="navigation">
+                <a href="../archive.html">Archive</a>
+                <a href="https://twitter.com/uncannyworks">@uncannyworks</a>
+                <a href="https://twitter.com/mojobojo">@mojobojo (Brian)</a>
+                <a href="https://twitter.com/CrappyGraphiX">@CrappyGraphiX (Chris)</a>
+                <a href="https://github.com/uncannyworks">github</a>
+            </div>
+            <a href="../">
+                <div id="logo">
+                    <img src="../images/rogo1_kuro.png" />
+                </div>
+            </a>
+        </div>
+        <div id="content">
+            <h1>Forward Into.. Javascript?</h1>
+<div class="info">
+    Posted on February 24, 2016
+    
+</div>
+
+<p>A NodeJS SDK for Armored Bits.</p>
+<h3 id="what-is-armored-bits">What is Armored Bits?</h3>
+<p>Armored Bits is a competitive, multiplayer, online game where players hone their programming skills by writing AI for massive autonomous robots. Players have no direct control of their machines, instead they are tasked with reading input from scanners, processing communication streams from teammates, and analyzing their machine’s state to make intelligent decisions and win victory in combat. This is all accomplished by sending network messages to the Game Server hosting the match and processing the responses received. The goal of the final product is to allow players to choose any programming language they want to code their AI and as long as said AI can correctly communicate with the Game Server over a network connection. At these early stages of development we’ve chosen to build an SDK targeting Javascript with NodeJS. In this post we’ll cover the reasons behind our decisions as well as dig into some of the internals of this SDK.</p>
+<h3 id="why-an-sdk-at-all">Why an SDK at all?</h3>
+<p>Raw communication and event handling with the game server can be overwhelming for the novice level programmer. The goal of the SDK is to provide a simple interface into these complex functions.</p>
+<h3 id="why-nodejs">Why NodeJS?</h3>
+<p>Node provides a stable and consistent runtime that is easily installed on many operating systems. With a quick visit to their <a href="https://nodejs.org/en/download/package-manager/">website</a> you can see that, regardless of the operating system, installation can usually be done in a single terminal command. In addition to simple installation, running a NodeJS program is as simple as typing:</p>
+<pre><code>$ node mycode.js</code></pre>
+<h3 id="why-javascript">Why Javascript?</h3>
+<p>Javascript is both powerful and accessible. With the many learning <a href="https://www.google.com/#q=learn+javascript">resources available</a>, a fortune’s worth of <a href="http://stackoverflow.com/questions/tagged/javascript?sort=votes">Stack Overflow</a> answers, thriving <a href="http://irc.lc/freenode/javascript">communities</a>, and the shallow learning curve it makes sense that Javascript would be the <a href="http://redmonk.com/sogrady/2016/02/19/language-rankings-1-16/">first choice</a> for many people wanting to learn programming.</p>
+<h3 id="talking-to-the-game-server">Talking to the Game Server</h3>
+<p>We’ll begin by exploring how the SDK simplifies sending a request to the game server. We’ll examine the case where a player wants to fire a weapon. Lets have a look at the internals of <code>sdk.fire_weapon(warmachine.weapons[0])</code> to see what the SDK does for us. Before we move forward note that <code>warmachine</code> is an object that we obtain by asking the Game Server for our war machine’s current state in the game world. We’ll go into more detail on how this is accomplished in the next post, for now just understand that we got <code>warmachine</code> from a previous step not covered here.</p>
+<pre><code class="javascript">
+  this.fire_weapon = function(weaponStruct) {
+    this.send_weapon_request(weaponStruct.location.locationType,
+      weaponStruct.location.parentId,
+      weaponStruct.location.positionId,
+      this.COMPONENT_STATE.Active,
+      this.WEAPON_FIRE_STATE.Fire
+    );
+  }
+</code></pre>
+<p>First we must consider the parameter <code>weaponStruct</code>. <code>warmachine</code> has an array of weapon objects and we’re passing in the first element of that array. The complete structure of these objects can be found in the protobuf definitions <a href="https://github.com/uncannyworks/armoredbits.protobufs/blob/master/slug.proto#L93">here</a> and <a href="https://github.com/uncannyworks/armoredbits.protobufs/blob/master/query.proto">here</a>. The function then deconstructs the <code>weaponStruct</code> parameter and passes off the heavy lifting to <code>send_weapon_request</code> which we will dig into next.</p>
+<pre><code class="javascript">
+  this.send_weapon_request = function(locationType, parentId, positionId, state, fireState) {
+    var p = protobufBuilder.build("SlugCommitWeaponRequest");
+    var l = protobufBuilder.build("SlugQueryLocationMessage");
+    var loc = new l(locationType, parentId, positionId);
+    var m = new p(loc, state, fireState);
+    var mg = _build_message(this.MESSAGE_CODES.SlugCommitWeaponRequest, m);
+    _send_message(mg);
+  }
+</code></pre>
+<p>In general the function takes the parameters and builds the message that will be shot over the network connection. <code>protobufBuilder.build</code> comes from the <a href="https://www.npmjs.com/package/protobufjs">protobufjs</a> library and facilitates turning javascript objects into raw bytes and back again using structures defined by <a href="https://developers.google.com/protocol-buffers">Google Protocol Buffers</a>. The first two lines of the function load up the blueprints that will be used to make the objects representing the protobuf messages. The third and fourth lines actually perform the creation using the parameters provided. The reason we need two blueprints is because <code>SlugCommitWeaponRequest</code>, <a href="https://github.com/uncannyworks/armoredbits.protobufs/blob/master/commit.proto#L48">as you can see in the proto file</a>, contains a nested message. <code>_build_message</code> is responsible for taking the javascript object we’ve created and processing it into an array of bytes ready to be thrown on the wire. Next lets take a look at some of the parts of <code>_build_message</code> and what it is doing for us.</p>
+<pre><code class="javascript">
+var _build_message = function(code, message) {
+  //... code above omitted for brevity ...
+  buff = message.encode();
+  var len = buff.toArrayBuffer().byteLength;
+
+  var messageLengthBytes = new ArrayBuffer(2); // an Int16 takes 2 bytes
+  var view = new DataView(messageLengthBytes);
+  view.setUint16(0, len, false); // byteOffset = 0; litteEndian = false
+  var bb = protobuf.ByteBuffer.wrap(messageLengthBytes);
+  buff.prepend(bb);
+
+  var messageCode = new Uint8Array(1);
+  messageCode[0] = code;
+  bb = protobuf.ByteBuffer.wrap(messageCode);
+  buff.prepend(bb);
+  //... code below omitted for brevity ...
+}
+</code></pre>
+<p>The game server expects messages to consist of a 1 byte message id, followed by a 2 byte payload length, then the payload. Even after omitting some code the above may look like a lot, so lets break it down.</p>
+<pre><code class="javascript">
+  buff = message.encode();
+</code></pre>
+<p>This is the whole reason we asked <a href="https://www.npmjs.com/package/protobufjs">protobufjs</a> to join the ride. It returns a buffer full of the bytes that will make up our payload.</p>
+<pre><code class="javascript">
+  var messageLengthBytes = new ArrayBuffer(2); // an Int16 takes 2 bytes
+  var view = new DataView(messageLengthBytes);
+  view.setUint16(0, len, false); // byteOffset = 0; litteEndian = false
+  var bb = protobuf.ByteBuffer.wrap(messageLengthBytes);
+  buff.prepend(bb);
+  
+  var messageCode = new Uint8Array(1);
+  messageCode[0] = code;
+  bb = protobuf.ByteBuffer.wrap(messageCode);
+  buff.prepend(bb);
+</code></pre>
+<p>The next step is to take the payload length and message type id, which are integers, and translate them into a 2 and 1 byte array respectively. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView">DataView</a> is how we are able to do that. We then prepend them to the payload to get our final message that will go over the wire. The final step is to fire the message over the wire, and this is done by <code>_send_message</code>.</p>
+<p>Internally <code>_send_message</code> manages the requests so that they go out as quickly as possible but don’t flood the buffer, we’ll go into greater detail at another time. We’ve basically covered the process for sending a request to the game server. While each message is a bit different in its payload they all go through the same digestion process.</p>
+<h3 id="i-can-do-it-myself">I can do it myself!</h3>
+<p>Obviously there is nothing preventing a player from implementing their own solution to communicate with the game server, and we encourage you to do so! In addition to providing new programmers with a tool to quickly start programming the AI for their War Machine this SDK also acts as an example for the more advanced programmers that may be interested in rolling their own solutions.</p>
+<p>In the next post we’ll go over how the SDK handles responses from the game server. It will cover how the SDK manages and simplifies retrieving your war machine’s state, handling Game State changes, and more.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+        <script src="../js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-28958813-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+      </script>
+    </body>
+</html>
