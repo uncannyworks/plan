@@ -1,5 +1,6 @@
 ---
 title: Choosing a Backend Language
+author: Brian Jones
 ---
 
 Picking a language to write your game/system/service in shouldn’t really be a hard choice, yet as developers we tend to get hung up on which technology we want to use.  After all, you will be stuck with your choice once steam picks up, and for a myriad of reasons (usually business) switching stacks becomes incredibly hard the further along you are.

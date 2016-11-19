@@ -1,5 +1,6 @@
 ---
 title: Armored Bits - War Machines
+author: Brian Jones
 ---
 
 ## Game AI Programming Simulator

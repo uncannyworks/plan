@@ -1,5 +1,6 @@
 ---
 title: Haskell Game Server - Part 1 Followup (Cross Post)
+author: Brian Jones
 ---
 
 (_This is a cross post from [Brian's](https://twitter.com/mojobojo) personal blog_ - [original](http://mojobojo.com/posts/2015-12-28-haskell-game-server-part-1-followup.html))

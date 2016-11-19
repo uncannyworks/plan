@@ -1,5 +1,6 @@
 ---
 title: What can you do in Armored Bits anyways?
+author: Brian Jones
 ---
 
 Two blogs posts in one day? Crazy. I suppose there's actually a bit to talk about now that a large chunk of AB's development is behind us.

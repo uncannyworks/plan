@@ -1,5 +1,6 @@
 ---
 title: Doing Indie Game Dev Wrong
+author: Brian Jones
 ---
 
 Ok, admittedly the title is a bit misleading, but hear me out. We absolutely love what we are doing and are having a blast. However, if you truly want to be a successful indie game dev you probably shouldn't do 99% of the things that we are doing.

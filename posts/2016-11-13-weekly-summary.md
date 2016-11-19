@@ -1,5 +1,6 @@
 ---
-title: Weekly Summary 3 (Brian Jones - Ending 2016-11-13)
+title: Weekly Summary 3 - Ending 2016-11-13
+author: Brian Jones
 ---
 
 This was an interesting week full of various technical achievements. Unfortunately I did not manage to stay focused and achieve the goals I lined out last week.

@@ -1,5 +1,6 @@
 ---
-title: Weekly Summary 2 (Brian Jones - Ending 2016-11-06)
+title: Weekly Summary 2 - Ending 2016-11-06
+author: Brian Jones
 ---
 
 This week was all over the board. Thursday was a national holiday in Japan, so I took Friday off to give myself a 4 day weekend. My time was divided between family responsibilities and juggling projects. I actually burned myself out so with the exception of this blog post I ended up just relaxing with my daughter all day Sunday.

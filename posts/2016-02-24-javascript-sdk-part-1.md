@@ -1,5 +1,6 @@
 ---
 title: Forward Into.. Javascript?
+author: Chris Johnston
 ---
 
 A NodeJS SDK for Armored Bits.

@@ -1,5 +1,6 @@
 ---
-title: Weekly Summary 1 (Brian Jones - Ending 2016-10-30)
+title: Weekly Summary 1 - Ending 2016-10-30
+author: Brian Jones
 ---
 
 One thing that has been abundantly clear to me over the years is that people I consider successful tend to do things like [post](http://sachachua.com/blog/) [regular](http://www.gridsagegames.com/blog/) [updates](https://www.truevalhalla.com/) about things they are doing. Success in this case doesn't exactly mean turning a profit, although it can. It's more like people clearly setting goals for themselves, pushing forward getting things done, and actually seeing said goals all the way through to completion.
